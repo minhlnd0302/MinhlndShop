@@ -27,6 +27,6 @@ namespace MinhlndShop.Model.Model
         public int? ViewCount { get; set; }
 
         [ForeignKey("CategoryID")]
-        public virtual PostCategory PostCategory { get; set; }
+        public PostCategory PostCategory { get; set; }
     }
 }

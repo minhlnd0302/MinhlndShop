@@ -17,9 +17,9 @@ namespace MinhlndShop.Model.Model
         public string TagID { set; get; }
 
         [ForeignKey("PostID")]
-        public virtual Post Post { set; get; }
+        public Post Post { set; get; }
 
         [ForeignKey("TagID")]
-        public virtual Tag Tag { set; get; }
+        public Tag Tag { set; get; }
     }
 }

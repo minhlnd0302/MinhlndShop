@@ -23,6 +23,6 @@ namespace MinhlndShop.Model.Model
         public string Image { get; set; }  
         public bool? HomeFlag { get; set; }
 
-        public virtual IEnumerable<Product> Products { get; set; }
+        public ICollection<Product> Products { get; set; }
     }
 }

@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31019.35
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinhlndShop.Common", "MinhlndShop.Common\MinhlndShop.Common.csproj", "{104A566A-0BEF-4775-A1EF-5CA333EB6976}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinhlndShop.Common", "MinhlndShop.Common\MinhlndShop.Common.csproj", "{104A566A-0BEF-4775-A1EF-5CA333EB6976}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinhlndShop.Data", "MinhlndShop.Data\MinhlndShop.Data.csproj", "{F842F05F-AAF5-49FE-93AE-ACE5AD6CF277}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinhlndShop.Data", "MinhlndShop.Data\MinhlndShop.Data.csproj", "{F842F05F-AAF5-49FE-93AE-ACE5AD6CF277}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinhlndShop.Model", "MinhlndShop.Model\MinhlndShop.Model.csproj", "{58DDBD4C-3BF0-4F96-AB49-C8D2400AAB7F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinhlndShop.Model", "MinhlndShop.Model\MinhlndShop.Model.csproj", "{58DDBD4C-3BF0-4F96-AB49-C8D2400AAB7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinhlndShop.Service", "MinhlndShop.Service\MinhlndShop.Service.csproj", "{B04024A3-29FA-4962-8BC7-F58A48F3B4A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinhlndShop.Service", "MinhlndShop.Service\MinhlndShop.Service.csproj", "{B04024A3-29FA-4962-8BC7-F58A48F3B4A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinhlndShop.UnitTest", "MinhlndShop.UnitTest\MinhlndShop.UnitTest.csproj", "{57999314-F7EB-43DF-B19D-9E45262CF016}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinhlndShop.UnitTest", "MinhlndShop.UnitTest\MinhlndShop.UnitTest.csproj", "{57999314-F7EB-43DF-B19D-9E45262CF016}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinhlndShop.Web", "MinhlndShop.Web\MinhlndShop.Web.csproj", "{5B6CA14F-3C3C-4110-BCA5-33F401996F42}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinhlndShop.Web", "MinhlndShop.Web\MinhlndShop.Web.csproj", "{5B6CA14F-3C3C-4110-BCA5-33F401996F42}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

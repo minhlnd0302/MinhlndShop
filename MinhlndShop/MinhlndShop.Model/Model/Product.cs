@@ -23,7 +23,7 @@ namespace MinhlndShop.Model.Model
         [Required]
         public int CategoryID { get; set; } 
         public string Image { get; set; }
-        public XElement MoreImage { get; set; } 
+        public string MoreImage { get; set; } 
      
         public decimal Price { get; set; }
         public decimal? PromotionPrice { get; set; }
@@ -36,6 +36,6 @@ namespace MinhlndShop.Model.Model
         public int? ViewCount { get; set; }
 
         [ForeignKey("CategoryID")]
-        public virtual ProductCategory ProductCategory { get; set; }
+        public ProductCategory ProductCategory { get; set; }
     }
 }

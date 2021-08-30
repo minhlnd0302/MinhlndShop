@@ -8,6 +8,7 @@ namespace MinhlndShop.Model.Model
     {
         [Key]
         [Column(Order = 1)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)] 
         public int OrderID { set; get; }
 
         [Key]
@@ -19,9 +20,9 @@ namespace MinhlndShop.Model.Model
         public decimal Price { set; get; }
 
         [ForeignKey("OrderID")]
-        public virtual Order Order { set; get; }
+        public Order Order { set; get; }
 
         [ForeignKey("ProductID")]
-        public virtual Product Product { set; get; }
+        public Product Product { set; get; }
     }
 }

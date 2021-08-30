@@ -31,6 +31,6 @@ namespace MinhlndShop.Model.Model
         public string Image { get; set; }
         public bool HomeFlag { get; set; }
 
-        public virtual IEnumerable<Post> Posts { get; set; }
+        public  ICollection<Post> Posts { get; set; }
     }
 }

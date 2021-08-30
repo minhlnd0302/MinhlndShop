@@ -12,8 +12,15 @@ namespace MinhlndShop.Model.Model
         public int ID { get; set; }
 
         [Required]
+        [MaxLength(50)]
         public string Name { get; set; }
 
-        public virtual IEnumerable<Menu> Menus { get; set; }
+        //public virtual IEnumerable<Menu> Menus { get; set; }
+        public ICollection<Menu> Menus { get; set; }
+
+        public MenuGroup()
+        {
+            Menus = new HashSet<Menu>();
+        }
     }
 }
