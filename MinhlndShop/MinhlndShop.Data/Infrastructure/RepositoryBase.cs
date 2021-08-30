@@ -9,7 +9,7 @@ namespace MinhlndShop.Data.Infrastructure
 {
     public abstract class RepositoryBase<T> : IRepository<T> where T : class
     {
-    
+
         #region Properties
         //private MinhlndShopDbContext dataContext;
         //private readonly DbSet<T> dbSet;
@@ -29,14 +29,14 @@ namespace MinhlndShop.Data.Infrastructure
         {
             //_context = context;
             Dbcontext = Dbcontext ?? (Dbcontext = DbFactory.Init());
-        }  
+        }
         #endregion
-         
+
 
         #region Implementation
         public void Add(T entity)
         {
-           Dbcontext.Set<T>().Add(entity);
+            Dbcontext.Set<T>().Add(entity);
         }
         public void AddRange(IEnumerable<T> entities)
         {
@@ -56,9 +56,18 @@ namespace MinhlndShop.Data.Infrastructure
         {
             return Dbcontext.Set<T>().Where(expression);
         }
-        public IEnumerable<T> GetAll()
+        public IEnumerable<T> GetAll(string[] includes = null)
         {
+            if (includes != null && includes.Count() > 0)
+            {
+                var query = Dbcontext.Set<T>().Include(includes.First());
+                foreach (var include in includes.Skip(1))
+                    query = query.Include(include);
+                return query.ToList();
+            } 
+
             return Dbcontext.Set<T>().ToList();
+
         }
         public T GetById(int id)
         {
@@ -66,6 +75,12 @@ namespace MinhlndShop.Data.Infrastructure
         }
         public void Remove(T entity)
         {
+            Dbcontext.Set<T>().Remove(entity);
+        }
+
+        public void Remove(int id)
+        {
+            var entity = Dbcontext.Set<T>().Find(id);
             Dbcontext.Set<T>().Remove(entity);
         }
         public void RemoveRange(IEnumerable<T> entities)
@@ -76,6 +91,55 @@ namespace MinhlndShop.Data.Infrastructure
         public int Count(Expression<Func<T, bool>> where)
         {
             return Dbcontext.Set<T>().Count();
+        }
+
+        public virtual IEnumerable<T> GetMultiPaging(Expression<Func<T, bool>> predicate, out int total, int index = 0, int size = 20, string[] includes = null)
+        {
+            int skipCount = index * size;
+            IEnumerable<T> _resetSet;
+
+            //HANDLE INCLUDES FOR ASSOCIATED OBJECTS IF APPLICABLE
+            if (includes != null && includes.Count() > 0)
+            {
+                var query = Dbcontext.Set<T>().Include(includes.First());
+                foreach (var include in includes.Skip(1))
+                    query = query.Include(include);
+                _resetSet = predicate != null ? query.Where<T>(predicate).AsQueryable() : query.AsQueryable();
+            }
+            else
+            {
+                _resetSet = predicate != null ? Dbcontext.Set<T>().Where<T>(predicate).AsQueryable() : Dbcontext.Set<T>().AsQueryable();
+            }
+
+            _resetSet = skipCount == 0 ? _resetSet.Take(size) : _resetSet.Skip(skipCount).Take(size);
+            total = _resetSet.Count();
+            return _resetSet;
+        }
+
+        public T GetSingleByCondition(Expression<Func<T, bool>> expression, string[] includes = null)
+        {
+            if (includes != null && includes.Count() > 0)
+            {
+                var query = Dbcontext.Set<T>().Include(includes.First());
+                foreach (var include in includes.Skip(1))
+                    query = query.Include(include);
+                return query.FirstOrDefault(expression);
+            }
+            return Dbcontext.Set<T>().FirstOrDefault(expression);
+        }
+
+        public virtual IEnumerable<T> GetMulti(Expression<Func<T, bool>> predicate, string[] includes = null)
+        {
+            //HANDLE INCLUDES FOR ASSOCIATED OBJECTS IF APPLICABLE
+            if (includes != null && includes.Count() > 0)
+            {
+                var query = Dbcontext.Set<T>().Include(includes.First());
+                foreach (var include in includes.Skip(1))
+                    query = query.Include(include);
+                return query.Where<T>(predicate).ToList();
+            }
+
+            return Dbcontext.Set<T>().Where<T>(predicate).ToList();
         }
 
 

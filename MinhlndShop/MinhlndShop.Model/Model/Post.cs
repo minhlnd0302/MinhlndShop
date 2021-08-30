@@ -1,4 +1,5 @@
 ﻿using MinhlndShop.Model.Abstract;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -27,6 +28,7 @@ namespace MinhlndShop.Model.Model
         public int? ViewCount { get; set; }
 
         [ForeignKey("CategoryID")]
-        public PostCategory PostCategory { get; set; }
+        public PostCategory PostCategory { get; set; } 
+        //public ICollection<PostTag> PostTags { get; set; }
     }
 }
