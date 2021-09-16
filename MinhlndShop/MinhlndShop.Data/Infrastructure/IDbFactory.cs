@@ -6,6 +6,7 @@ namespace MinhlndShop.Data.Infrastructure
 {
     public interface IDbFactory : IDisposable
     {
-        MinhlndShopDbContext Init();
+        MinhlndShopDbContext Init(); 
+        
     }
 }

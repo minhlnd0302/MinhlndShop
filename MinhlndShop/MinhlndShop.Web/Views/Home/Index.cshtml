@@ -1,8 +1,33 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@*@{
+        ViewData["Title"] = "Home Page";
+    }
+    <div class="text-center">
+        <h1 class="display-4">Welcome Minhlnd</h1>
+        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+    </div>*@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.js" integrity="sha512-rCVQBDU9Ny0aKLo1/B1MqgRjWEMlCL3WJ0DD6mJeK6qMZqpN9JCRxPtMQWWR9XWCMFIqlSgT4uOdwpvxWTSejw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>*@
+    <script src="../Assets/admin/libs/node_modules/angular/angular.js"></script>
+    <script src="../Scripts/SPA/app.js"></script> 
+</head>
+<body ng-app="myModule">  
+    <div ng-controller="myControllerSchool" >
+        @*<div class="text-center" ng-controller="myControllerStudent">
+            {{message}}
+        </div>
+        <div class="text-center" ng-controller="myControllerTeacher">
+            {{message}}
+        </div>*@
+        <minhlnd-shop-directive></minhlnd-shop-directive>
+        <input type="text" ng-model="number"/>
+        <p>{{number}}</p>
+        <button ng-click="checkNumber()" >Click</button>
+    </div> 
+</body>
+</html>

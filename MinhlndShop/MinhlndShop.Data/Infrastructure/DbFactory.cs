@@ -1,11 +1,13 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Serialization;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace MinhlndShop.Data.Infrastructure
 {
     public class DbFactory : Disposable, IDbFactory
-    {
+    { 
         private MinhlndShopDbContext dbContext;
 
         public MinhlndShopDbContext Init()
@@ -15,7 +17,7 @@ namespace MinhlndShop.Data.Infrastructure
 
         protected override void DisposeCore()
         {
-            if(dbContext!= null)
+            if (dbContext != null)
             {
                 dbContext.Dispose();
             }

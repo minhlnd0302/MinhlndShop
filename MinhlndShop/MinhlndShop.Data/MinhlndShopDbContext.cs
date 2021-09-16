@@ -1,11 +1,7 @@
-﻿using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MinhlndShop.Model.Model;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
 
 namespace MinhlndShop.Data
 {
@@ -21,17 +17,13 @@ namespace MinhlndShop.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                //var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
-                //builder.Build();
+                IConfigurationRoot configuration = new ConfigurationBuilder()
+                    .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                    .AddJsonFile("appsettings.json")
+                    .Build();
+                optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
 
-                //SqlConnection con = new SqlConnection(builder.GetSection("Data").GetSection("ConnectionString").Value);
-                //optionsBuilder.UseSqlServer(con);
-                //IConfigurationRoot configuration = new ConfigurationBuilder()
-                //    .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-                //    .AddJsonFile("appsettings.json")
-                //    .Build();
-                //optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
-                optionsBuilder.UseSqlServer(@"Data Source=.;Initial Catalog=MinhlndShop;Integrated Security=True");
+                //optionsBuilder.UseSqlServer(@"Data Source=.;Initial Catalog=MinhlndShop;Integrated Security=True");
             }
         }
 
@@ -52,6 +44,8 @@ namespace MinhlndShop.Data
         public DbSet<SystemConfig> SystemConfigs { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<VisitorStatistic> VisitorStatistics { get; set; }
+        public DbSet<Error> Errors { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

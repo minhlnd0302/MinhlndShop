@@ -1,29 +1,31 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace MinhlndShop.Data.Infrastructure
 {
-    public interface IRepository <T> where T : class
-    {
-        T GetById(int id);
-        IEnumerable<T> GetAll(string[] includes = null);
-        IEnumerable<T> Find(Expression<Func<T, bool>> expression);
-        void Add(T entity);
-        void AddRange(IEnumerable<T> entities); 
-        void Update(T entity);
-        void UpdateRange(IEnumerable<T> entity);
-        void Remove(T entity);
-        void Remove(int id);
-        void RemoveRange(IEnumerable<T> entities);
 
-        int Count(Expression<Func<T, bool>> where);
+    public interface IRepository<T> where T : class
+    {
+        Task<T> GetById(int id);
+        Task<IEnumerable<T>> GetAll(string[] includes = null);
+        Task<IEnumerable<T>> Find(Expression<Func<T, bool>> predicate);
+        T Add(T entity);
+        IEnumerable<T> AddRange(IEnumerable<T> entities);
+        T Update(T entity);
+        IEnumerable<T> UpdateRange(IEnumerable<T> entity);
+        T Remove(T entity);
+        T Remove(int id);
+        IEnumerable<T> RemoveRange(IEnumerable<T> entities);
+        Task<int> Count(Expression<Func<T, bool>> where);
         IEnumerable<T> GetMultiPaging(Expression<Func<T, bool>> filter, out int total, int index = 0, int size = 50, string[] includes = null);
 
-        T GetSingleByCondition(Expression<Func<T, bool>> expression, string[] includes = null);
-        IEnumerable<T> GetMulti(Expression<Func<T, bool>> predicate, string[] includes = null);
+        Task<T> GetSingleByCondition(Expression<Func<T, bool>> expression, string[] includes = null);
+        Task<IEnumerable<T>> GetMulti(Expression<Func<T, bool>> predicate, string[] includes = null);
 
         //void Add(T entity);
 

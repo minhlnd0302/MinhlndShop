@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.9" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.12.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MinhlndShop.Common\MinhlndShop.Common.csproj" />
+    <ProjectReference Include="..\MinhlndShop.Data\MinhlndShop.Data.csproj" />
+    <ProjectReference Include="..\MinhlndShop.Model\MinhlndShop.Model.csproj" />
+    <ProjectReference Include="..\MinhlndShop.Service\MinhlndShop.Service.csproj" />
+  </ItemGroup>
+
+</Project>

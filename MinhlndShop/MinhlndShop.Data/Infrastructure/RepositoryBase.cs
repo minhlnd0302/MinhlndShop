@@ -1,99 +1,137 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 using System.Linq.Expressions;
-using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace MinhlndShop.Data.Infrastructure
 {
     public abstract class RepositoryBase<T> : IRepository<T> where T : class
     {
 
-        #region Properties
-        //private MinhlndShopDbContext dataContext;
-        //private readonly DbSet<T> dbSet;
-
-        protected readonly MinhlndShopDbContext Dbcontext;
-        //protected RepositoryBase(IDbFactory dbFactory)
-        //{
-        //    DbFactory = dbFactory;
-        //    //dbSet = DbContext.Set<T>();
-        //}
+        #region Properties 
+        protected  MinhlndShopDbContext dataContext;
+        protected readonly DbSet<T> DbSetEntity;
         protected IDbFactory DbFactory
         {
             get;
             private set;
         }
+        protected MinhlndShopDbContext DbContext
+        {
+            get { return dataContext ?? (dataContext = DbFactory.Init()); }
+        }
         public RepositoryBase(IDbFactory dbFactory)
         {
-            //_context = context;
-            Dbcontext = Dbcontext ?? (Dbcontext = DbFactory.Init());
+            DbFactory = dbFactory;
+            DbSetEntity = DbContext.Set<T>();
+
+            //Dbcontext = minhlndShopDbContext;
+            //DbSetEntity = Dbcontext.Set<T>();
         }
+
         #endregion
 
-
         #region Implementation
-        public void Add(T entity)
+
+        public async Task<T> GetById(int id)
         {
-            Dbcontext.Set<T>().Add(entity);
-        }
-        public void AddRange(IEnumerable<T> entities)
-        {
-            Dbcontext.Set<T>().AddRange(entities);
+            return await DbSetEntity.FindAsync(id);
         }
 
-        public void Update(T entitie)
-        {
-            Dbcontext.Set<T>().Update(entitie);
-        }
-
-        public void UpdateRange(IEnumerable<T> entities)
-        {
-            Dbcontext.Set<T>().UpdateRange(entities);
-        }
-        public IEnumerable<T> Find(Expression<Func<T, bool>> expression)
-        {
-            return Dbcontext.Set<T>().Where(expression);
-        }
-        public IEnumerable<T> GetAll(string[] includes = null)
+        public async Task<IEnumerable<T>> GetAll(string[] includes = null)
         {
             if (includes != null && includes.Count() > 0)
             {
-                var query = Dbcontext.Set<T>().Include(includes.First());
+                var query = DbSetEntity.Include(includes.First());
                 foreach (var include in includes.Skip(1))
                     query = query.Include(include);
-                return query.ToList();
-            } 
+                return await query.ToListAsync();
+            }
 
-            return Dbcontext.Set<T>().ToList();
-
-        }
-        public T GetById(int id)
-        {
-            return Dbcontext.Set<T>().Find(id);
-        }
-        public void Remove(T entity)
-        {
-            Dbcontext.Set<T>().Remove(entity);
+            return await DbSetEntity.ToListAsync();
         }
 
-        public void Remove(int id)
+        public async Task<IEnumerable<T>> Find(Expression<Func<T, bool>> predicate)
         {
-            var entity = Dbcontext.Set<T>().Find(id);
-            Dbcontext.Set<T>().Remove(entity);
-        }
-        public void RemoveRange(IEnumerable<T> entities)
-        {
-            Dbcontext.Set<T>().RemoveRange(entities);
+            return await DbSetEntity.Where(predicate).ToListAsync();
         }
 
-        public int Count(Expression<Func<T, bool>> where)
+        public T Add(T entity)
         {
-            return Dbcontext.Set<T>().Count();
+            DbSetEntity.Add(entity);
+            return entity;
         }
 
-        public virtual IEnumerable<T> GetMultiPaging(Expression<Func<T, bool>> predicate, out int total, int index = 0, int size = 20, string[] includes = null)
+        public IEnumerable<T> AddRange(IEnumerable<T> entities)
+        {
+            DbSetEntity.AddRange();
+            return entities;
+        }
+
+        public T Update(T entity)
+        {
+            DbSetEntity.Update(entity);
+            return entity;
+        }
+
+        public IEnumerable<T> UpdateRange(IEnumerable<T> entities)
+        {
+            DbSetEntity.UpdateRange(entities);
+            return entities;
+        }
+
+        public T Remove(T entity)
+        {
+            DbSetEntity.Remove(entity);
+            return entity;
+        }
+
+        public T Remove(int id)
+        {
+            T entity = DbSetEntity.Find(id);
+            DbSetEntity.Remove(entity);
+            return entity;
+        }
+
+        public IEnumerable<T> RemoveRange(IEnumerable<T> entities)
+        {
+            DbSetEntity.RemoveRange(entities);
+            return entities;
+        }
+
+        public async Task<int> Count(Expression<Func<T, bool>> where)
+        {
+            return await DbSetEntity.CountAsync();
+        }
+
+        public async Task<T> GetSingleByCondition(Expression<Func<T, bool>> expression, string[] includes = null)
+        {
+            if (includes != null && includes.Count() > 0)
+            {
+                var query = DbSetEntity.Include(includes.First());
+                foreach (var include in includes.Skip(1))
+                    query = query.Include(include);
+                return await query.FirstOrDefaultAsync(expression);
+            }
+            return await DbSetEntity.FirstOrDefaultAsync(expression);
+        }
+
+        public async Task<IEnumerable<T>> GetMulti(Expression<Func<T, bool>> predicate, string[] includes = null)
+        {
+            if (includes != null && includes.Count() > 0)
+            {
+                var query = DbSetEntity.Include(includes.First());
+                foreach (var include in includes.Skip(1))
+                    query = query.Include(include);
+                return await query.Where<T>(predicate).ToListAsync();
+            }
+
+            return await DbSetEntity.Where<T>(predicate).ToListAsync();
+        }
+
+        public IEnumerable<T> GetMultiPaging(Expression<Func<T, bool>> filter, out int total, int index = 0, int size = 50, string[] includes = null)
         {
             int skipCount = index * size;
             IEnumerable<T> _resetSet;
@@ -101,126 +139,114 @@ namespace MinhlndShop.Data.Infrastructure
             //HANDLE INCLUDES FOR ASSOCIATED OBJECTS IF APPLICABLE
             if (includes != null && includes.Count() > 0)
             {
-                var query = Dbcontext.Set<T>().Include(includes.First());
+                var query = DbSetEntity.Include(includes.First());
                 foreach (var include in includes.Skip(1))
                     query = query.Include(include);
-                _resetSet = predicate != null ? query.Where<T>(predicate).AsQueryable() : query.AsQueryable();
+                _resetSet = filter != null ? query.Where<T>(filter).AsQueryable() : query.AsQueryable();
             }
             else
             {
-                _resetSet = predicate != null ? Dbcontext.Set<T>().Where<T>(predicate).AsQueryable() : Dbcontext.Set<T>().AsQueryable();
+                _resetSet = filter != null ? DbSetEntity.Where<T>(filter).AsQueryable() : DbSetEntity.AsQueryable();
             }
 
             _resetSet = skipCount == 0 ? _resetSet.Take(size) : _resetSet.Skip(skipCount).Take(size);
             total = _resetSet.Count();
             return _resetSet;
         }
-
-        public T GetSingleByCondition(Expression<Func<T, bool>> expression, string[] includes = null)
-        {
-            if (includes != null && includes.Count() > 0)
-            {
-                var query = Dbcontext.Set<T>().Include(includes.First());
-                foreach (var include in includes.Skip(1))
-                    query = query.Include(include);
-                return query.FirstOrDefault(expression);
-            }
-            return Dbcontext.Set<T>().FirstOrDefault(expression);
-        }
-
-        public virtual IEnumerable<T> GetMulti(Expression<Func<T, bool>> predicate, string[] includes = null)
-        {
-            //HANDLE INCLUDES FOR ASSOCIATED OBJECTS IF APPLICABLE
-            if (includes != null && includes.Count() > 0)
-            {
-                var query = Dbcontext.Set<T>().Include(includes.First());
-                foreach (var include in includes.Skip(1))
-                    query = query.Include(include);
-                return query.Where<T>(predicate).ToList();
-            }
-
-            return Dbcontext.Set<T>().Where<T>(predicate).ToList();
-        }
-
-
-        //public virtual void Add(T entity)
+       
+         
+        //public void Add(T entity)
         //{
-        //    //return dbSet.Add(entity);
-        //    if (entity == null)
-        //    {
-        //        throw new ArgumentNullException("entity");
-        //    }
-        //    dbSet.Add(entity);
-        //    //DbContext.SaveChanges();
+        //   Dbcontext.Set<T>().Add(entity);
+        //}
+        //public async Task AddRange(IEnumerable<T> entities)
+        //{
+        //    await Dbcontext.Set<T>().AddRangeAsync(entities);
         //}
 
-        //public virtual void Update(T entity)
+        //public void Update(T entity)
         //{
-        //    dbSet.Attach(entity);
-        //    dataContext.Entry(entity).State = EntityState.Modified;
+        //    Dbcontext.Set<T>().Update(entity);
         //}
 
-        //public virtual T Delete(T entity)
+        //public void UpdateRange(IEnumerable<T> entities)
         //{
-        //    return dbSet.Remove(entity);
+        //    Dbcontext.Set<T>().UpdateRange(entities);
         //}
-        //public virtual T Delete(int id)
+        ////public IEnumerable<T> Find(Expression<Func<T, bool>> expression)
+        ////{
+        ////    return Dbcontext.Set<T>().Where(expression);
+        ////}
+        //public async Task<IEnumerable<T>> GetAll(string[] includes = null)
         //{
-        //    //var entity = dbSet.Find(id);
-        //    //return dbSet.Remove(entity);
-        //    if (id == null)
-        //    {
-        //        throw new ArgumentNullException("entity");
-        //    }
-        //    dbSet.Remove(id);
-        //    //context.SaveChanges();
-        //}
-        //public virtual void DeleteMulti(Expression<Func<T, bool>> where)
-        //{
-        //    IEnumerable<T> objects = dbSet.Where<T>(where).AsEnumerable();
-        //    foreach (T obj in objects)
-        //        dbSet.Remove(obj);
-        //}
-
-        //public virtual T GetSingleById(int id)
-        //{
-        //    return dbSet.Find(id);
-        //}
-
-        //public virtual IEnumerable<T> GetMany(Expression<Func<T, bool>> where, string includes)
-        //{
-        //    return dbSet.Where(where).ToList();
-        //}
-
-        //public virtual int Count(Expression<Func<T, bool>> where)
-        //{
-        //    return dbSet.Count(where);
-        //}
-
-        //public IEnumerable<T> GetAll(string[] includes = null)
-        //{
-        //    //HANDLE INCLUDES FOR ASSOCIATED OBJECTS IF APPLICABLE
         //    if (includes != null && includes.Count() > 0)
         //    {
-        //        var query = dataContext.Set<T>().Include(includes.First());
+        //        var query = Dbcontext.Set<T>().Include(includes.First());
         //        foreach (var include in includes.Skip(1))
         //            query = query.Include(include);
-        //        return query.AsQueryable();
+        //        return await query.ToListAsync();
         //    }
 
-        //    return dataContext.Set<T>().AsQueryable();
+        //    return await Dbcontext.Set<T>().ToListAsync();
+
+        //}
+        //public async Task<T> GetById(int id)
+        //{
+        //    return await Dbcontext.Set<T>().FindAsync(id);
+        //}
+        //public void Remove(T entity)
+        //{
+        //    Dbcontext.Set<T>().Remove(entity);
+        //}
+
+        //public void Remove(int id)
+        //{
+        //    var entity = Dbcontext.Set<T>().Find(id);
+        //    Dbcontext.Set<T>().Remove(entity);
+        //}
+        //public void RemoveRange(IEnumerable<T> entities)
+        //{
+        //    Dbcontext.Set<T>().RemoveRange(entities);
+        //}
+
+        //public async Task<int> Count(Expression<Func<T, bool>> where)
+        //{
+        //    return await Dbcontext.Set<T>().Count();
+        //}
+
+        //public virtual IEnumerable<T> GetMultiPaging(Expression<Func<T, bool>> predicate, out int total, int index = 0, int size = 20, string[] includes = null)
+        //{
+        //    int skipCount = index * size;
+        //    IEnumerable<T> _resetSet;
+
+        //    HANDLE INCLUDES FOR ASSOCIATED OBJECTS IF APPLICABLE
+        //    if (includes != null && includes.Count() > 0)
+        //    {
+        //        var query = Dbcontext.Set<T>().Include(includes.First());
+        //        foreach (var include in includes.Skip(1))
+        //            query = query.Include(include);
+        //        _resetSet = predicate != null ? query.Where<T>(predicate).AsQueryable() : query.AsQueryable();
+        //    }
+        //    else
+        //    {
+        //        _resetSet = predicate != null ? Dbcontext.Set<T>().Where<T>(predicate).AsQueryable() : Dbcontext.Set<T>().AsQueryable();
+        //    }
+
+        //    _resetSet = skipCount == 0 ? _resetSet.Take(size) : _resetSet.Skip(skipCount).Take(size);
+        //    total = _resetSet.Count();
+        //    return _resetSet;
         //}
 
         //public T GetSingleByCondition(Expression<Func<T, bool>> expression, string[] includes = null)
         //{
         //    if (includes != null && includes.Count() > 0)
         //    {
-        //        var query = dataContext.Set<T>().Include(includes.First());
+        //        var query = Dbcontext.Set<T>().Include(includes.First());
         //        foreach (var include in includes.Skip(1))
         //            query = query.Include(include);
         //        return query.FirstOrDefault(expression);
         //    }
-        //    return dataContext.Set<T>().FirstOrDefault(expression);
+        //    return Dbcontext.Set<T>().FirstOrDefault(expression);
         //}
 
         //public virtual IEnumerable<T> GetMulti(Expression<Func<T, bool>> predicate, string[] includes = null)
@@ -228,42 +254,17 @@ namespace MinhlndShop.Data.Infrastructure
         //    //HANDLE INCLUDES FOR ASSOCIATED OBJECTS IF APPLICABLE
         //    if (includes != null && includes.Count() > 0)
         //    {
-        //        var query = dataContext.Set<T>().Include(includes.First());
+        //        var query = Dbcontext.Set<T>().Include(includes.First());
         //        foreach (var include in includes.Skip(1))
         //            query = query.Include(include);
-        //        return query.Where<T>(predicate).AsQueryable<T>();
+        //        return query.Where<T>(predicate).ToList();
         //    }
 
-        //    return dataContext.Set<T>().Where<T>(predicate).AsQueryable<T>();
+        //    return Dbcontext.Set<T>().Where<T>(predicate).ToList();
         //}
 
-        //public virtual IEnumerable<T> GetMultiPaging(Expression<Func<T, bool>> predicate, out int total, int index = 0, int size = 20, string[] includes = null)
-        //{
-        //    int skipCount = index * size;
-        //    IQueryable<T> _resetSet;
 
-        //    //HANDLE INCLUDES FOR ASSOCIATED OBJECTS IF APPLICABLE
-        //    if (includes != null && includes.Count() > 0)
-        //    {
-        //        var query = dataContext.Set<T>().Include(includes.First());
-        //        foreach (var include in includes.Skip(1))
-        //            query = query.Include(include);
-        //        _resetSet = predicate != null ? query.Where<T>(predicate).AsQueryable() : query.AsQueryable();
-        //    }
-        //    else
-        //    {
-        //        _resetSet = predicate != null ? dataContext.Set<T>().Where<T>(predicate).AsQueryable() : dataContext.Set<T>().AsQueryable();
-        //    }
 
-        //    _resetSet = skipCount == 0 ? _resetSet.Take(size) : _resetSet.Skip(skipCount).Take(size);
-        //    total = _resetSet.Count();
-        //    return _resetSet.AsQueryable();
-        //}
-
-        //public bool CheckContains(Expression<Func<T, bool>> predicate)
-        //{
-        //    return dataContext.Set<T>().Count<T>(predicate) > 0;
-        //}
         #endregion
     }
 }

@@ -9,54 +9,74 @@ using System.Threading.Tasks;
 
 namespace MinhlndShop.Service
 {
-    public interface IOrderService 
-    {
-        Order Create(ref Order order, List<OrderDetail> orderDetails);
-        void UpdateStatus(int orderId);
-        void Save();
-    }
-    public class OrderService : IOrderService
-    {
-        IOrderRepository _orderRepository;
-        IOrderDetailRepository _orderDetailRepository;
-        IUnitOfWork _unitOfWork;
+    //public interface IOrderService 
+    //{
+    //    Order Create(ref Order order, List<OrderDetail> orderDetails);
+    //    void UpdateStatus(int orderId);
+    //    void Save();
+    //}
+    //public class OrderService : IOrderService
+    //{
+    //    IOrderRepository _orderRepository;
+    //    IOrderDetailRepository _orderDetailRepository;
+    //    IUnitOfWork _unitOfWork;
 
-        public OrderService(IOrderRepository orderRepository, IOrderDetailRepository orderDetailRepository, IUnitOfWork unitOfWork)
-        {
-            this._orderRepository = orderRepository;
-            this._orderDetailRepository = orderDetailRepository;
-            this._unitOfWork = unitOfWork;
-        }
-        public Order Create(ref Order order, List<OrderDetail> orderDetails)
-        {
-            try
-            {
-                _orderRepository.Add(order);
-                _unitOfWork.Commit();
+    //    public OrderService(IOrderRepository orderRepository, IOrderDetailRepository orderDetailRepository, IUnitOfWork unitOfWork)
+    //    {
+    //        this._orderRepository = orderRepository;
+    //        this._orderDetailRepository = orderDetailRepository;
+    //        this._unitOfWork = unitOfWork;
+    //    }
+    //    public async Task<Order> Create(Order order, List<OrderDetail> orderDetails)
+    //    {
+    //        try
+    //        {
+    //            _orderRepository.Add(order);
+    //            await _unitOfWork.CommitAsync();
 
-                foreach (var orderDetail in orderDetails)
-                {
-                    orderDetail.OrderID = order.ID;
-                    _orderDetailRepository.Add(orderDetail);
-                }
-                return order;
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-        }
+    //            foreach (var orderDetail in orderDetails)
+    //            {
+    //                orderDetail.OrderID = order.ID;
+    //                _orderDetailRepository.Add(orderDetail);
+    //            }
+    //            return order;
+    //        }
+    //        catch (Exception ex)
+    //        {
+    //            throw;
+    //        }
+    //    }
 
-        public void UpdateStatus(int orderId)
-        {
-            var order = _orderRepository.GetById(orderId);
-            order.Status = true;
-            _orderRepository.Update(order);
-        }
+    //    public async void UpdateStatus(int orderId)
+    //    {
+    //        var order = await _orderRepository.GetById(orderId);
+    //        order.Status = true;
+    //        _orderRepository.Update(order);
+    //    }
 
-        public void Save()
-        {
-            _unitOfWork.Commit();
-        }
-    }
+    //    public void Save()
+    //    {
+    //        _unitOfWork.CommitAsync();
+    //    }
+
+    //    public Order Create(ref Order order, List<OrderDetail> orderDetails)
+    //    {
+    //        try
+    //        {
+    //            _orderRepository.Add(order);
+    //            _unitOfWork.CommitAsync();
+
+    //            foreach (var orderDetail in orderDetails)
+    //            {
+    //                orderDetail.OrderID = order.ID;
+    //                _orderDetailRepository.Add(orderDetail);
+    //            }
+    //            return order;
+    //        }
+    //        catch (Exception ex)
+    //        {
+    //            throw;
+    //        }
+    //    }
+    //}
 }
