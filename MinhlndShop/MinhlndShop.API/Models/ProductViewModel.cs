@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -22,5 +23,18 @@ namespace MinhlndShop.API.Models
         public bool? HotFlag { get; set; }
         public int? ViewCount { get; set; } 
         public ProductCategoryViewModel ProductCategory { get; set; }
+
+        public DateTime? CreatedDate { set; get; }
+        public string CreatedBy { set; get; }
+
+        public DateTime? UpdatedDate { set; get; }
+        public string UpdatedBy { set; get; }
+        public string MetaKeyword { set; get; }
+        public string MetaDescription { set; get; }
+
+        [Required(ErrorMessage = "Yêu cầu nhập trạng thái")]
+        public bool Status { set; get; }
+
+        public string Tags { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace MinhlndShop.Data.Infrastructure
     {
 
         #region Properties 
-        protected  MinhlndShopDbContext dataContext;
+        protected MinhlndShopDbContext dataContext;
         protected readonly DbSet<T> DbSetEntity;
         protected IDbFactory DbFactory
         {
@@ -101,9 +101,9 @@ namespace MinhlndShop.Data.Infrastructure
             return entities;
         }
 
-        public async Task<int> Count(Expression<Func<T, bool>> where)
+        public int Count(Expression<Func<T, bool>> where)
         {
-            return await DbSetEntity.CountAsync();
+            return DbSetEntity.Count();
         }
 
         public async Task<T> GetSingleByCondition(Expression<Func<T, bool>> expression, string[] includes = null)
@@ -153,8 +153,8 @@ namespace MinhlndShop.Data.Infrastructure
             total = _resetSet.Count();
             return _resetSet;
         }
-       
-         
+
+
         //public void Add(T entity)
         //{
         //   Dbcontext.Set<T>().Add(entity);

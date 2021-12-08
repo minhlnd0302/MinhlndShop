@@ -5,20 +5,20 @@ using System.Linq;
 
 namespace MinhlndShop.Data.Repository
 {
-    //public interface IProductCategoryRepository : IRepository<ProductCategory>
-    //{
-    //    IEnumerable<ProductCategory> GetByAlias(string alias);
-    //}
-    //public class ProductCategoryRepository : RepositoryBase<ProductCategory>, IProductCategoryRepository
-    //{ 
-    //    public ProductCategoryRepository(IDbFactory dbFactory) : base(dbFactory)
-    //    {
+    public interface IProductCategoryRepository : IRepository<ProductCategory>
+    {
+        IEnumerable<ProductCategory> GetByAlias(string alias);
+    }
+    public class ProductCategoryRepository : RepositoryBase<ProductCategory>, IProductCategoryRepository
+    {
+        public ProductCategoryRepository(IDbFactory dbFactory) : base(dbFactory)
+        {
 
-    //    }
+        }
 
-    //    public IEnumerable<ProductCategory> GetByAlias(string alias)
-    //    {
-    //        return this.Dbcontext.ProductCategories.Where(x => x.Alias == alias);
-    //    }
-    //}
+        public IEnumerable<ProductCategory> GetByAlias(string alias)
+        {
+            return this.DbContext.ProductCategories.Where(x => x.Alias == alias);
+        }
+    }
 }

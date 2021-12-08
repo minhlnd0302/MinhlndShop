@@ -35,6 +35,8 @@ namespace MinhlndShop.Model.Model
         public bool? HotFlag { get; set; }
         public int? ViewCount { get; set; }
 
+        public string Tags { get; set; }
+
         [ForeignKey("CategoryID")]
         public ProductCategory ProductCategory { get; set; }
     }

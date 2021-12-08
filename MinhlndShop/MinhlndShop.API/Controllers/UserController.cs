@@ -21,7 +21,7 @@ namespace MinhlndShop.API.Controllers
         private readonly IMapper _mapper;
         private readonly JwtConfig _jwtConfig; 
 
-        public UserController(IOptions<JwtConfig> jwtConfig, IUserService userService, IMapper mapper)
+        public UserController(IOptions<JwtConfig> jwtConfig, IUserService userService, IMapper mapper)  
         { 
             _userService = userService;
             _jwtConfig = jwtConfig.Value;
@@ -31,8 +31,7 @@ namespace MinhlndShop.API.Controllers
         // GET: api/<UserController>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<string>>> Get()
-        {
-
+        { 
             User user = _userService.Login("minhlnd", "minhlnd");
             string token = string.Empty;
 
@@ -45,12 +44,8 @@ namespace MinhlndShop.API.Controllers
             {
                 //UserName = "user1",
                 Password = "user1",
-            };
-
-            var userVm = _mapper.Map<User>(newUser); 
-
-            //_userService.CreateUser(newUser);
-            //_userService.Save();
+            }; 
+            var userVm = _mapper.Map<User>(newUser);  
 
             return Ok(userVm) ; 
         }

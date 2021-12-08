@@ -1,0 +1,79 @@
+﻿<div class="container body">
+    <div class="main_container">
+        <!-- page content -->
+        <div role="main">
+            <div class="">
+                <div class="page-title">
+                    <div class="title_left">
+                        <h3>Product Category</h3>
+                    </div>
+                    <div class="title_right">
+                        <div class="col-md-5 col-sm-5  form-group pull-right top_search">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search for..." ng-model="keyword" ng-change="search()">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" ng-click="search()">Go!</button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-10"></div>
+                    <div class="col-md-2">
+                        <a class="btn btn-round btn-success" ui-sref="product_category_add"><i class="fa fa-plus"></i></a>
+                        <a class="btn btn-round btn-danger disabled" id="btnDeleteMulti" data-toggle="tooltip" data-placement="top" title="Delete multiple" ng-click="deleteMulti()"><i class="fa fa-trash"></i></a> 
+                    </div> 
+                </div>
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table id="datatable" class="table table-striped table-bordered" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <input type="checkbox" name="all" ng-click="selectAll()" />  
+                                    </th>
+                                    <th>Id</th>
+                                    <th>Product Category Name</th>
+                                    <th>Description</th>
+                                    <th>DisplayOrder</th>
+                                    <th>Created Date</th>
+                                    <th>Updated Date</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="category in productCategories">
+                                    <td><input type="checkbox" ng-model="category.checked" /></td>
+                                    <td>{{category.id}}</td>
+                                    <td>{{category.name}}</td>
+                                    <td>{{category.description}}</td>
+                                    <td>{{category.displayOrder}}</td>
+                                    <td>{{category.createdDate | date:'yyyy/mm/dd hh:mm:ss'}}</td>
+                                    <td>{{category.updatedDate | date:'yyyy/mm/dd hh:mm:ss'}}</td>
+                                    <!--<td ng-class="category.status ? 'text-success' : 'text-warning'" class="value" >{{category.status | statusFilter}}</td>-->
+                                    <td>
+                                        <span ng-class="!category.status ? 'bg-red' : 'bg-green'" class="badge">
+                                            {{category.status | statusFilter}}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-sm btn-primary" ui-sref="product_category_edit({id:category.id})"><i class="fa fa-pencil" ></i></button>
+                                        <button class="btn btn-sm btn-danger" ng-click="deleteProductCategory(category.id)"><i class="fa fa-trash"></i></button>
+                                        <button ng-click="changeStatus(category.id)"  ng-class="category.status ? 'btn btn-sm btn-success' : 'btn btn-sm bg-red'"><i class="fa fa-power-off"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="box-footer col-md-12">
+                        <pager-directive page="{{page}}" custom-path="{{customPath}}" total-pages="{{totalPages}}" total-count="{{totalCount}}" search-func="getProductCategories(page)"></pager-directive>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /page content -->
+</div>

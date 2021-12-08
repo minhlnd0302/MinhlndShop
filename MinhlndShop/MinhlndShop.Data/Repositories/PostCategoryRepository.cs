@@ -6,15 +6,15 @@ using System.Linq.Expressions;
 
 namespace MinhlndShop.Data.Repository
 {
-    //public interface IPostCategoryRepository : IRepository<PostCategory>
-    //{
+    public interface IPostCategoryRepository : IRepository<PostCategory>
+    {
 
-    //}
-    //public class PostCategoryRepository : RepositoryBase<PostCategory>, IPostCategoryRepository
-    //{
-    //    public PostCategoryRepository(IDbFactory dbFactory) : base(dbFactory)
-    //    {
+    }
+    public class PostCategoryRepository : RepositoryBase<PostCategory>, IPostCategoryRepository
+    {
+        public PostCategoryRepository(IDbFactory dbFactory) : base(dbFactory)
+        {
 
-    //    }  
-    //}
+        }
+    }
 }

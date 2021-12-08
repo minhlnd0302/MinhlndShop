@@ -19,9 +19,9 @@ namespace MinhlndShop.Data.Infrastructure
         T Update(T entity);
         IEnumerable<T> UpdateRange(IEnumerable<T> entity);
         T Remove(T entity);
-        T Remove(int id);
+        T Remove(int id);  
         IEnumerable<T> RemoveRange(IEnumerable<T> entities);
-        Task<int> Count(Expression<Func<T, bool>> where);
+        int Count(Expression<Func<T, bool>> where);
         IEnumerable<T> GetMultiPaging(Expression<Func<T, bool>> filter, out int total, int index = 0, int size = 50, string[] includes = null);
 
         Task<T> GetSingleByCondition(Expression<Func<T, bool>> expression, string[] includes = null);

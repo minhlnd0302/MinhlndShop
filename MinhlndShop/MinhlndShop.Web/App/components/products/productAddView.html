@@ -1,10 +1,135 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title></title>
-</head>
-<body>
+﻿<div class="container body">
+    <div class="main_container">
+        <!-- page content -->
+        <div role="main">
+            <div class="">
+                <div class="page-title">
+                    <div class="title_left">
+                        <h3>Add Product</h3>
+                    </div>
+                    <div class="title_right">
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <form class="form-horizontal form-label-left" novalidate name="frmAddProduct" role="form" ng-submit="AddProduct()">
 
-</body>
-</html>
+                            <div class="item form-group my-4">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align" for="product-category-name">
+                                    Product Name <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input type="text" name="name" required="required" class="form-control rounded" ng-change="GetSeoTitle()" ng-model="product.Name" ng-maxlength="256">
+                                    <span class="error" ng-show="frmAddProduct.name.$invalid && !frmAddproduct.name.$error.maxlength">Field is required</span>
+                                    <span class="error" ng-show="frmAddProduct.name.$error.maxlength">Length no more than 256 characters</span>
+                                </div>
+                            </div>
+                            <div class="item form-group my-4">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align" for="alias">
+                                    Alias <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input type="text" name="alias" required class="form-control rounded" ng-model="product.Alias">
+                                    <span class="error" ng-show="frmAddProduct.alias.$invalid && !frmAddProduct.alias.$error.maxlength">Field is required</span>
+                                    <span class="error" ng-show="frmAddProduct.alias.$error.maxlength">Length no more than 256 characters</span>
+                                </div>
+                            </div>
+                            <div class="item form-group my-4">
+                                <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Description</label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input class="form-control rounded" type="text" name="description" ng-model="product.Description" ng-maxlength="500">
+                                    <span class="error" ng-show="frmAddProduct.description.$error.maxlength">Length no more than 500 characters</span>
+                                </div>
+                            </div>
+
+                            <div class="item form-group my-4">
+                                <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Product Category</label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <select class="form-control rounded" ng-model="product.categoryId" ng-options="option.id as option.name for option in productCategories">
+                                    </select>
+                                    <input name="ParentId" type="hidden" ng-model="product.categoryId" />
+                                </div>
+                            </div>
+
+                            <div class="item form-group my-4">
+                                <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">
+                                    Price <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input name="price" class="form-control rounded" type="number" value="0" required ng-model="product.price">
+                                    <span class="error" ng-show="frmAddProduct.price.$invalid">Field is required</span>
+                                </div>
+                            </div>
+
+                            <div class="item form-group my-4">
+                                <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Warranty</label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input class="form-control rounded" type="number" name="warranty" ng-model="product.warranty">(Month)
+                                </div>
+                            </div>
+
+                            <div class="item form-group my-4">
+                                <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Content</label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input class="form-control rounded" type="text" name="content" ng-model="product.content">
+                                </div>
+                            </div>
+
+                            <div class="item form-group my-4">
+                                <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Tags</label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input class="form-control rounded" type="text" name="tags" ng-model="product.tags">
+                                </div>
+                            </div>
+
+                            <div class="item form-group my-4">
+                                <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Meta Keywork</label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input class="form-control rounded" type="text" name="meta-keywork" ng-model="product.Image">
+                                </div>
+                            </div>
+
+                            <div class="item form-group my-4">
+                                <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Meta Description</label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <!--<textarea class="form-control rounded" ckeditor name="meta-description" ng-model="product.MetaDescription"></textarea>-->
+                                    <ng-ckeditor ng-model="product.MetaDescription" skin="moono" remove-buttons="Image" remove-plugins="iframe,flash,smiley" msn-count="
+                                        Number of typed characters:"></ng-ckeditor>
+                                </div>
+                            </div>
+
+                            <div class="item form-group my-4">
+                                <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align"></label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <label>
+                                        <input type="checkbox" class="flat" checked="checked" name="status" ng-checked="product.Status" ng-model="product.Status"> Active
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="item form-group my-4">
+                                <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align"></label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <label>
+                                        <input type="checkbox" class="flat" checked="checked" name="homeFlag" ng-checked="product.HomeFlag" ng-model="product.HomeFlag"> Show home page
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="ln_solid"></div>
+                            <div class="item form-group ">
+                                <div class="col-md-6 col-sm-6 offset-md-3 d-flex flex-row-reverse">
+                                    <button class="btn btn-round btn-outline-danger" ui-sref="product_categories"> Cancel</button>
+                                    <button type="submit" class="btn btn-round btn-success" ng-disabled="frmAddProduct.$invalid">Submit</button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /page content -->
+</div> 

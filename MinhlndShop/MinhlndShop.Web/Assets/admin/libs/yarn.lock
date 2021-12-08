@@ -2,7 +2,105 @@
 # yarn lockfile v1
 
 
-angular@^1.8.2:
+angular-ui-router@~0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/angular-ui-router/-/angular-ui-router-0.3.2.tgz#c27e0496309c99218d5655985b164a096ab520a9"
+  integrity sha1-wn4EljCcmSGNVlWYWxZKCWq1IKk=
+  dependencies:
+    angular "^1.0.8"
+
+angular@>=1.3.0, angular@^1.0.8, angular@^1.8.2:
   version "1.8.2"
   resolved "https://registry.yarnpkg.com/angular/-/angular-1.8.2.tgz#5983bbb5a9fa63e213cb7749199e0d352de3a2f1"
   integrity sha512-IauMOej2xEe7/7Ennahkbb5qd/HFADiNuLSESz9Q27inmi32zB0lnAsFeLEWcox3Gd1F6YhNd1CP7/9IukJ0Gw==
+
+bootbox@>=4.4.0, bootbox@^5.5.2:
+  version "5.5.2"
+  resolved "https://registry.yarnpkg.com/bootbox/-/bootbox-5.5.2.tgz#a4200aa03f12ffe4d07905834e9dfb76e52cee00"
+  integrity sha512-q8d9VO2A4+q6S0XvovLtqtBUp7uRy0wtDOuuycnoheK2TiAm3um0jOlAOu9ORn9XoT92tdil+p15Dle1mRgSPQ==
+  dependencies:
+    bootstrap "^4.4.0"
+    jquery "^3.5.1"
+    popper.js "^1.16.0"
+
+bootstrap@4.3.1:
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.3.1.tgz#280ca8f610504d99d7b6b4bfc4b68cec601704ac"
+  integrity sha512-rXqOmH1VilAt2DyPzluTi2blhk17bO7ef+zLLPlWvG494pDxcM234pJ8wTc/6R40UWizAIIMgxjvxZg5kmsbag==
+
+bootstrap@>=3.3.0:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-5.1.1.tgz#9d6eed81e08feaccedf3adaca51fe4b73a2871df"
+  integrity sha512-/jUa4sSuDZWlDLQ1gwQQR8uoYSvLJzDd8m5o6bPKh3asLAMYVZKdRCjb1joUd5WXf0WwCNzd2EjwQQhupou0dA==
+
+bootstrap@^4.4.0:
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.6.0.tgz#97b9f29ac98f98dfa43bf7468262d84392552fd7"
+  integrity sha512-Io55IuQY3kydzHtbGvQya3H+KorS/M9rSNyfCGCg9WZ4pyT/lCxIlpJgG1GXW/PswzC84Tr2fBYi+7+jFVQQBw==
+
+ckeditor@*, ckeditor@^4.12.1:
+  version "4.12.1"
+  resolved "https://registry.yarnpkg.com/ckeditor/-/ckeditor-4.12.1.tgz#954a7b028dd611e44ba51cc7c2fe051cf1052186"
+  integrity sha512-pH2Su4oi0D4iN/3U8nUcwI7/lXHoOJi0aiN8e2zxnm4Ow5kq8eZP2ZGmpYyuqRyKZ2tHaU8+OyYi7laXcjiq9Q==
+
+fastclick@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/fastclick/-/fastclick-1.0.6.tgz#161625b27b1a5806405936bda9a2c1926d06be6a"
+  integrity sha1-FhYlsnsaWAZAWTa9qaLBkm0Gvmo=
+
+font-awesome@^4.7.0:
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/font-awesome/-/font-awesome-4.7.0.tgz#8fa8cf0411a1a31afd07b06d2902bb9fc815a133"
+  integrity sha1-j6jPBBGhoxr9B7BtKQK7n8gVoTM=
+
+"jquery@1.10.0 - 3.6.0", "jquery@>= 1.9.1", jquery@>=1.12.0, jquery@>=2.1.0, jquery@^3.5.1:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.6.0.tgz#c72a09f15c1bdce142f49dbf1170bdf8adac2470"
+  integrity sha512-JVzAR/AjBvVt2BmYhxRCSYysDsPcssdmTFnzyLEts9qNwmjmu4JTAMYubEfwVOSwpQ1I1sKKFcxhZCI2buerfw==
+
+jquery@3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
+  integrity sha512-Ubldcmxp5np52/ENotGxlLe6aGMvmF4R8S6tZjsP6Knsaxd/xp3Zrh50cG93lR6nPXyUFwzN3ZSOQI0wRJNdGg==
+
+kendo-ui-core@^2021.3.914:
+  version "2021.3.914"
+  resolved "https://registry.yarnpkg.com/kendo-ui-core/-/kendo-ui-core-2021.3.914.tgz#c0c7921bc2dcf556cdac35e2f325dcaa607ab2fc"
+  integrity sha512-MAGhnt1dwWR1z/+oObhS/QZj0bu0U7xN0MC2hcMogBwI75bV3Dbp0gdsSqqlIG6TDNxSPP10rvEiDcAVvfBiWA==
+  dependencies:
+    jquery "1.10.0 - 3.6.0"
+
+ng-ckeditor@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/ng-ckeditor/-/ng-ckeditor-2.0.5.tgz#14ba19cb447b578305632f8ac4aa3811c80794b5"
+  integrity sha512-P0V8WWaCqpWHilj+FLF67+trjJXu58D79EGVd5x/NViw5UudSdVHyHfkPw1qcbxtb+AYSaryO6zmwtRDW3exPQ==
+  dependencies:
+    ckeditor "*"
+    jquery ">= 1.9.1"
+
+ngbootbox@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/ngbootbox/-/ngbootbox-0.2.0.tgz#51f5c575ecfd14715ce135c12e37091dc39a04bd"
+  integrity sha1-UfXFdez9FHFc4TXBLjcJHcOaBL0=
+  dependencies:
+    angular ">=1.3.0"
+    bootbox ">=4.4.0"
+    bootstrap ">=3.3.0"
+    jquery ">=2.1.0"
+
+nprogress@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/nprogress/-/nprogress-0.2.0.tgz#cb8f34c53213d895723fcbab907e9422adbcafb1"
+  integrity sha1-y480xTIT2JVyP8urkH6UIq28r7E=
+
+popper.js@^1.16.0:
+  version "1.16.1"
+  resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.16.1.tgz#2a223cb3dc7b6213d740e40372be40de43e65b1b"
+  integrity sha512-Wb4p1J4zyFTbM+u6WuO4XstYx4Ky9Cewe4DWrel7B0w6VVICvPwdOpotjzcf6eD8TsckVnIMNONQyPIUFOUbCQ==
+
+toastr@^2.1.4:
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/toastr/-/toastr-2.1.4.tgz#8b43be64fb9d0c414871446f2db8e8ca4e95f181"
+  integrity sha1-i0O+ZPudDEFIcURvLbjoyk6V8YE=
+  dependencies:
+    jquery ">=1.12.0"

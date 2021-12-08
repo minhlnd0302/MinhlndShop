@@ -23,11 +23,12 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using MinhlndShop.API.Mappings;
+using MinhlndShop.Data.Repository;
 
 namespace MinhlndShop.API
 {
     public class Startup
-    {
+    { 
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -61,10 +62,30 @@ namespace MinhlndShop.API
 
             //services.AddDbContext<MinhlndShopDbContext, MinhlndShopDbContext>();
             //services.AddScoped(typeof(IRepository<User>), typeof(IUserRepository));
+            services.AddTransient<IErrorRepository, ErrorRepository>();
+            services.AddTransient<IErrorService, ErrorService>();
+
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IUserService, UserService>();
 
+            services.AddTransient<IProductCategoryRepository, ProductCategoryRepository>();
+            services.AddTransient<IProductCategoryService, ProductCategoryService>();
+
+            services.AddTransient<IProductTagRepository, ProductTagRepository>(); 
+            
+            services.AddTransient<ITagRepository, TagRepository>();
+
+            services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddTransient<IProductService, ProductService>();
+
             services.AddAutoMapper(typeof(AutoMapperConfiguration).Assembly);
+
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(b => b.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+            });
+
+
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -84,10 +105,14 @@ namespace MinhlndShop.API
 
             app.UseHttpsRedirection();
 
-            app.UseRouting();
+            app.UseRouting(); 
+
+            app.UseCors();
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+
              
             app.UseEndpoints(endpoints =>
             {

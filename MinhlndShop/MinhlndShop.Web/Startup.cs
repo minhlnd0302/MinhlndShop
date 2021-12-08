@@ -59,7 +59,15 @@ namespace MinhlndShop.Web
                 Path.Combine(Directory.GetCurrentDirectory(), @"Assets")),
                 RequestPath = new PathString("/Assets"),
                 EnableDirectoryBrowsing = true
-            }); 
+            });
+
+            app.UseFileServer(new FileServerOptions()
+            {
+                FileProvider = new PhysicalFileProvider(
+                Path.Combine(Directory.GetCurrentDirectory(), @"app")),
+                RequestPath = new PathString("/app"),
+                EnableDirectoryBrowsing = true
+            });
 
             app.UseStaticFiles();
 
@@ -71,7 +79,7 @@ namespace MinhlndShop.Web
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Admin}/{action=Index}/{id?}");
             });
         }
     }

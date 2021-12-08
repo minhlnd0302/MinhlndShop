@@ -203,12 +203,12 @@ namespace MinhlndShop.Data.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("CreateDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("CreatedBy")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("MetaDescription")
                         .HasMaxLength(256)
@@ -255,12 +255,12 @@ namespace MinhlndShop.Data.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("CreateDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("CreatedBy")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -319,12 +319,12 @@ namespace MinhlndShop.Data.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("varchar(256)");
 
-                    b.Property<DateTime?>("CreateDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("CreatedBy")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)
@@ -404,12 +404,12 @@ namespace MinhlndShop.Data.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("CreateDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("CreatedBy")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -447,6 +447,9 @@ namespace MinhlndShop.Data.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Tags")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("UpdatedBy")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -478,12 +481,12 @@ namespace MinhlndShop.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("CreateDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("CreatedBy")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
